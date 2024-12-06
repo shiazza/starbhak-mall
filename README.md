@@ -21,11 +21,11 @@ Starbhak Mall is a Flutter application designed to help users browse, upload, an
 Feature            | Status
 ------------------ | -------------
 All screen UI      | ✅ Done
-Login/Registers    | ⚒️ Under Development 
+Login/Registers    | ✅ Done
 Profile Change     | ⚒️ Under Development 
-Add to Cart        | ⚒️ Under Development 
-Upload Product     | ⚒️ Under Development 
-Database Integration (Supabase) | ⚒️ Under Development
+Add to Cart        | ✅ Done
+Upload Product     | ✅ Done 
+Database Integration (Supabase) | ✅ Done
 
 ---
 

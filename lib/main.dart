@@ -1,10 +1,23 @@
+import 'dart:async'; 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'screen/home_screen.dart';
-import 'screen/cart_screen.dart';
-import 'screen/add_item_screen.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'src/screen/home_screen.dart';
+import 'src/screen/cart_screen.dart';
+import 'src/screen/add_item_screen.dart';
+import 'src/start/login_screen.dart'; 
+import 'core/api/supabase.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Supabase.initialize(
+    url: SupabaseConfig.supabaseUrl, 
+    anonKey: SupabaseConfig.supabaseAnonKey,
+  );
+
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -12,9 +25,53 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
+      home: AuthWrapper(), 
       debugShowCheckedModeBanner: false,
     );
+  }
+}
+
+// New AuthWrapper to handle authentication state
+class AuthWrapper extends StatefulWidget {
+  @override
+  _AuthWrapperState createState() => _AuthWrapperState();
+}
+
+class _AuthWrapperState extends State<AuthWrapper> {
+  late final StreamSubscription<AuthState> _authSubscription;
+  bool _isAuthenticated = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Check initial authentication state
+    _checkAuthStatus();
+
+    // Listen for authentication state changes
+    _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
+      setState(() {
+        _isAuthenticated = data.session != null;
+      });
+    });
+  }
+
+  void _checkAuthStatus() {
+    final session = Supabase.instance.client.auth.currentSession;
+    setState(() {
+      _isAuthenticated = session != null;
+    });
+  }
+
+  @override
+  void dispose() {
+    _authSubscription.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // If not authenticated, show login screen
+    return _isAuthenticated ? MyHomePage() : LoginScreen();
   }
 }
 
@@ -29,132 +86,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Builder( 
-          builder: (BuildContext context) {
-            return Container(
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 4,
-                    offset: Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: Colors.black,
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer(); 
-                },
-              ),
-            );
-          },
-        ),
-        actions: [
-          Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(25),
-              boxShadow: const [
-                BoxShadow(
-                  color: Colors.grey,
-                  blurRadius: 4,
-                  offset: Offset(0, 4),
-                ),
-              ],
-            ),
-            child: IconButton(
-              icon: const Icon(
-                CupertinoIcons.person,
-                color: Colors.black,
-              ),
-              onPressed: () {
-                showCupertinoDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return CupertinoAlertDialog(
-                      title: const Text("Profile Button"),
-                      content: const Text("You clicked the profile button!"),
-                      actions: [
-                        CupertinoDialogAction(
-                          isDefaultAction: true,
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Close dialog
-                          },
-                          child: const Text(
-                            "OK",
-                            style: TextStyle(
-                              color: Colors.blue,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-        ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Text(
-                'Menu',
-                style: TextStyle(
-                  height: 5, 
-                  color: Colors.white,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-            ListTile(
-              leading: const Icon(CupertinoIcons.home),
-              title: const Text('Home'),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(CupertinoIcons.shopping_cart),
-              title: const Text('Cart'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(builder: (context) => const CartScreen()),
-                );
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.post_add_rounded),
-              title: const Text('Add Item'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  CupertinoPageRoute(builder: (context) => const AddItemScreen()),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-      body: const HomeScreen(),
+      body: const HomeScreen(), // Only displays HomeScreen
       bottomNavigationBar: Container(
         height: 60,
         decoration: BoxDecoration(
@@ -200,7 +132,6 @@ class MyHomePageState extends State<MyHomePage> {
             return;
           }
           if (index == 0) {
-            // Stay on Home screen (no routing)
             setState(() {
               _currentIndex = index;
             });
