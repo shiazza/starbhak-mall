@@ -7,7 +7,7 @@ import 'dart:io';
 
 class ProductForm extends StatefulWidget {
   final String userId; 
-  const ProductForm({super.key, required this.userId}); // Make userId required
+  const ProductForm({super.key, required this.userId}); 
 
   @override
   State<ProductForm> createState() => _ProductFormState();
@@ -37,7 +37,7 @@ class _ProductFormState extends State<ProductForm> {
    final supabaseService = SupabaseService();
 
    try {
-     // Upload gambar terlebih dahulu jika ada
+     
      String? imageUrl;
      if (_selectedImage != null) {
        imageUrl = await supabaseService.uploadImage(_selectedImage!);
@@ -54,14 +54,14 @@ class _ProductFormState extends State<ProductForm> {
        'price': int.parse(_priceController.text),
        'category': _selectedCategory,
        'creator_id': widget.userId,
-       'media': imageUrl, // Gunakan URL gambar yang diupload
+       'media': imageUrl, 
        'type': types.join(', '),
        'created_at': DateTime.now().toIso8601String(),
      };
 
      await supabaseService.insertItem(itemData);
 
-     // Clear the form after successful save
+     
      _nameController.clear();
      _descriptionController.clear();
      _priceController.clear();
@@ -71,14 +71,14 @@ class _ProductFormState extends State<ProductForm> {
        _selectedImage = null;
      });
 
-     // Show a success message or navigate to a different screen
+     
      ScaffoldMessenger.of(context).showSnackBar(
        const SnackBar(
          content: Text('Produk berhasil disimpan'),
        ),
      );
    } catch (error) {
-     // Handle error
+     
      ScaffoldMessenger.of(context).showSnackBar(
        SnackBar(
          content: Text('Terjadi kesalahan: $error'),

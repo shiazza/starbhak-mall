@@ -136,13 +136,13 @@ class _CartScreenState extends State<CartScreen> {
         return;
       }
 
-      // TODO: Implement full checkout process
-      // 1. Validate cart items
-      // 2. Create order
-      // 3. Process payment
-      // 4. Clear cart
       
-      // Tampilkan dialog sukses checkout
+      
+      
+      
+      
+      
+      
       _showCheckoutSuccessDialog();
     } catch (e) {
       setState(() {
@@ -162,7 +162,7 @@ class _CartScreenState extends State<CartScreen> {
             CupertinoDialogAction(
               onPressed: () {
                 Navigator.pop(context);
-                _fetchCartItems(); // Refresh keranjang
+                _fetchCartItems(); 
               },
               child: const Text("OK"),
             ),
@@ -210,7 +210,7 @@ class _CartScreenState extends State<CartScreen> {
       ),
       body: Column(
         children: [
-          // Tampilkan pesan error jika ada
+          
           if (_errorMessage != null)
             Container(
               width: double.infinity,
@@ -259,7 +259,7 @@ class _CartScreenState extends State<CartScreen> {
 
   Widget _buildShimmerLoadingList() {
     return ListView.builder(
-      itemCount: 3, // Jumlah item shimmer
+      itemCount: 3, 
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
@@ -269,7 +269,7 @@ class _CartScreenState extends State<CartScreen> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Shimmer untuk gambar
+                
                 Container(
                   width: 100,
                   height: 100,
@@ -280,21 +280,21 @@ class _CartScreenState extends State<CartScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Shimmer untuk nama item
+                      
                       Container(
                         width: double.infinity,
                         height: 20,
                         color: Colors.white,
                       ),
                       const SizedBox(height: 8),
-                      // Shimmer untuk harga
+                      
                       Container(
                         width: 100,
                         height: 16,
                         color: Colors.white,
                       ),
                       const SizedBox(height: 8),
-                      // Shimmer untuk kontrol kuantitas
+                      
                       Row(
                         children: [
                           Container(

@@ -44,7 +44,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
     return formatter.format(price);
   }
 
-  // Fetch items from Supabase
+  
   Future<void> fetchItems() async {
     if (userId == null) {
       debugPrint('User not logged in');
@@ -64,7 +64,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   }
 }
 
-  // Delete item from Supabase
+  
 Future<void> deleteItem(int index) async {
   try {
     final id = items[index]['id'];
@@ -77,7 +77,7 @@ Future<void> deleteItem(int index) async {
   }
 }
 
-  // Show delete confirmation dialog
+  
   void showDeleteConfirmation(BuildContext context, int index) {
     showCupertinoDialog(
       context: context,
@@ -123,7 +123,7 @@ Future<void> deleteItem(int index) async {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Button to add a new item
+            
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
@@ -133,9 +133,9 @@ Future<void> deleteItem(int index) async {
                 ),
               ),
               onPressed: () {
-                // Ensure that userId is not null before proceeding
+                
                 if (userId == null) {
-                  // Handle the case where the user is not logged in
+                  
                   showCupertinoDialog(
                     context: context,
                     builder: (context) {
@@ -161,7 +161,7 @@ Future<void> deleteItem(int index) async {
                   CupertinoPageRoute(
                     builder: (context) => ProductForm(userId: userId!),
                   ),
-                ).then((_) => fetchItems()); // Refresh the list after adding an item
+                ).then((_) => fetchItems()); 
               },
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
@@ -211,7 +211,7 @@ Future<void> deleteItem(int index) async {
                                       ),
                                     ),
                                     const SizedBox(height: 4),
-                                    // Display item price
+                                    
                                     Text(
                                       formatCurrency(item['price']),
                                       style: const TextStyle(color: Colors.black87),
@@ -219,7 +219,7 @@ Future<void> deleteItem(int index) async {
                                   ],
                                 ),
                               ),
-                              // Delete icon
+                              
                               IconButton(
                                 icon: const Icon(CupertinoIcons.delete, color: Colors.red),
                                 onPressed: () => showDeleteConfirmation(context, index),

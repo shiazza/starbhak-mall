@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _fetchItems();
   }
 
-    // Format price with Rupiah currency
+    
   String _formatPrice(dynamic price) {
     if (price == null) return 'Rp 0';
     final formatter = NumberFormat.currency(
@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Shimmer loading widget for categories
+  
   Widget _buildCategoryShimmer() {
     return ListView.builder(
       shrinkWrap: true,
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Shimmer loading widget for items grid
+  
   Widget _buildItemShimmer() {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -142,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
-      itemCount: 4, // Show 4 shimmer items
+      itemCount: 4, 
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Shimmer image
+                
                 Container(
                   width: double.infinity,
                   height: 170,
@@ -169,14 +169,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Shimmer product name
+                        
                         Container(
                           width: double.infinity,
                           height: 16,
                           color: Colors.white,
                         ),
                         const SizedBox(height: 8),
-                        // Shimmer price and add button
+                        
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -252,14 +252,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Shimmer Categories
+                      
                       Container(
                         height: 200,
                         alignment: Alignment.center,
                         child: _buildCategoryShimmer(),
                       ),
                       const SizedBox(height: 24),
-                      // Title for stuff Items
+                      
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Shimmer.fromColors(
@@ -273,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // Shimmer Items Grid
+                      
                       Expanded(
                         child: _buildItemShimmer(),
                       ),
@@ -287,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Category Selection
+                      
                       Container(
                         height: 200,
                         alignment: Alignment.center,
@@ -361,7 +361,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      // Title for stuff Items
+                      
                       Padding(
                         padding: const EdgeInsets.only(left: 8),
                         child: Text(
@@ -374,7 +374,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(height: 8),
-                      // Stuff Grid
+                      
                       Expanded(
                         child: filteredstuffs.isEmpty
                             ? Center(
@@ -405,7 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        // Gambar
+                                        
                                         ClipRRect(
                                           borderRadius: BorderRadius.circular(12),
                                           child: Image.network(
@@ -426,7 +426,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             },
                                           ),
                                         ),
-                                        // Informasi Produk
+                                        
                                         Expanded(
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -434,7 +434,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                // Nama Produk
+                                                
                                                 Text(
                                                   stuff['name'] ?? 'Unnamed Item',
                                                   style: const TextStyle(
@@ -444,7 +444,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   maxLines: 2,
                                                   overflow: TextOverflow.ellipsis,
                                                 ),
-                                                // Harga dan Tombol Tambah
+                                                
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                   children: [

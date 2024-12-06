@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
 
   Future<void> _handleLogin() async {
-    // Validate input
+    
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       _showErrorDialog('Please enter both email and password');
       return;
@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     try {
-      // Attempt login using SessionService
+      
       final response = await _sessionService.login(
         _emailController.text.trim(), 
         _passwordController.text.trim()
@@ -104,7 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 40),
 
-                // Email TextField
+                
                 CupertinoTextField(
                   controller: _emailController,
                   placeholder: 'Email',
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 20),
 
-                // Password TextField
+                
                 CupertinoTextField(
                   controller: _passwordController,
                   placeholder: 'Password',
@@ -153,7 +153,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 30),
 
-                // Login Button
+                
                 _isLoading
                     ? const CupertinoActivityIndicator()
                     : CupertinoButton.filled(
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                 const SizedBox(height: 20),
 
-                // Sign Up Row
+                
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

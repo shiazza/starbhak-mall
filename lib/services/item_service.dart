@@ -1,4 +1,4 @@
-// item_service.dart
+
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class ItemService {
@@ -8,7 +8,7 @@ class ItemService {
 
   Future<List<Map<String, dynamic>>> fetchItems() async {
     try {
-      // Fetch all items from Supabase
+      
       final response = await _supabase
           .from('items')
           .select('*')
@@ -20,7 +20,7 @@ class ItemService {
         'price': item['price'],
         'image': item['media'] != null
             ? _supabase.storage.from('items').getPublicUrl(item['media'])
-            : 'assets/placeholder.png', // Fallback image
+            : 'assets/placeholder.png', 
         'category': item['category'],
         'description': item['description'],
       }).toList();

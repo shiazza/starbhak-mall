@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// New AuthWrapper to handle authentication state
+
 class AuthWrapper extends StatefulWidget {
   @override
   _AuthWrapperState createState() => _AuthWrapperState();
@@ -44,10 +44,10 @@ class _AuthWrapperState extends State<AuthWrapper> {
   @override
   void initState() {
     super.initState();
-    // Check initial authentication state
+    
     _checkAuthStatus();
 
-    // Listen for authentication state changes
+    
     _authSubscription = Supabase.instance.client.auth.onAuthStateChange.listen((data) {
       setState(() {
         _isAuthenticated = data.session != null;
@@ -70,7 +70,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    // If not authenticated, show login screen
+    
     return _isAuthenticated ? MyHomePage() : LoginScreen();
   }
 }
@@ -86,7 +86,7 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const HomeScreen(), // Only displays HomeScreen
+      body: const HomeScreen(), 
       bottomNavigationBar: Container(
         height: 60,
         decoration: BoxDecoration(
@@ -128,7 +128,7 @@ class MyHomePageState extends State<MyHomePage> {
       child: InkWell(
         onTap: () {
           if (_currentIndex == index) {
-            // Do nothing if the selected index is already active
+            
             return;
           }
           if (index == 0) {

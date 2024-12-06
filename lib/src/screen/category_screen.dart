@@ -57,7 +57,7 @@ class CategoryScreen extends StatelessWidget {
           final category = categories[index];
           return GestureDetector(
             onTap: () {
-              // Handle category tap
+              
             },
             child: Container(
               decoration: BoxDecoration(

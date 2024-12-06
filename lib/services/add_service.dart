@@ -5,22 +5,22 @@ import 'dart:io';
 class SupabaseService {
   final SupabaseClient _supabase = Supabase.instance.client;
 
-  // Metode untuk upload gambar
+  
   Future<String?> uploadImage(File imageFile) async {
     try {
-      // Dapatkan user saat ini
+      
       final user = _supabase.auth.currentUser;
       
-      // Pastikan user sudah login
+      
       if (user == null) {
         print('User belum login');
         return null;
       }
 
-      // Generate unique filename
+      
       final String fileName = '${user.id}/${DateTime.now().millisecondsSinceEpoch}${path.extension(imageFile.path)}';
       
-      // Upload file
+      
       final response = await _supabase.storage
           .from('items')
           .upload(
@@ -32,7 +32,7 @@ class SupabaseService {
             ),
           );
 
-      // Kembalikan nama file, bukan URL
+      
       return fileName;
     } on StorageException catch (e) {
       print('Storage Upload Error: ${e.message}');
@@ -44,7 +44,7 @@ class SupabaseService {
     }
   }
 
-  // Metode untuk mendapatkan URL gambar
+  
   String getImageUrl(String? fileName) {
     if (fileName == null || fileName.isEmpty) {
       return 'assets/placeholder.png';
@@ -52,12 +52,12 @@ class SupabaseService {
     return _supabase.storage.from('items').getPublicUrl(fileName);
   }
 
-  // Metode insert item
+  
   Future<bool> insertItem(Map<String, dynamic> itemData) async {
-    // Dapatkan user saat ini
+    
     final user = _supabase.auth.currentUser;
     
-    // Pastikan user sudah login
+    
     if (user == null) {
       print('User harus login untuk menambah item');
       return false;
@@ -68,7 +68,7 @@ class SupabaseService {
           .from('items')
           .insert({
             ...itemData,
-            'creator_id': user.id, // Tambahkan creator_id
+            'creator_id': user.id, 
           });
       return true;
     } on PostgrestException catch (e) {
@@ -80,7 +80,7 @@ class SupabaseService {
     }
   }
 
-  // Metode fetch items
+  
   Future<List<Map<String, dynamic>>> fetchItems(String userId) async {
     try {
       final response = await _supabase
@@ -106,19 +106,19 @@ class SupabaseService {
     }
   }
 
-  // Metode delete item
+  
   Future<bool> deleteItem(String itemId) async {
-    // Dapatkan user saat ini
+    
     final user = _supabase.auth.currentUser;
     
-    // Pastikan user sudah login
+    
     if (user == null) {
       print('User harus login untuk menghapus item');
       return false;
     }
 
     try {
-      // Hapus item dari database
+      
       await _supabase
           .from('items')
           .delete()
@@ -135,12 +135,12 @@ class SupabaseService {
     }
   }
 
-  // Metode update item
+  
   Future<bool> updateItem(String itemId, Map<String, dynamic> updateData) async {
-    // Dapatkan user saat ini
+    
     final user = _supabase.auth.currentUser;
     
-    // Pastikan user sudah login
+    
     if (user == null) {
       print('User harus login untuk mengupdate item');
       return false;
@@ -162,7 +162,7 @@ class SupabaseService {
     }
   }
 
-  // Metode untuk menghapus file dari storage
+  
   Future<bool> deleteImageFromStorage(String? fileName) async {
     if (fileName == null || fileName.isEmpty) {
       return false;
@@ -180,21 +180,21 @@ class SupabaseService {
   }
 }
 
-// Contoh penggunaan
+
 class ExampleUsage {
   final SupabaseService _supabaseService = SupabaseService();
 
-  // Contoh membuat item baru
+  
   Future<void> createItem(File imageFile) async {
-    // Upload gambar
+    
     final String? fileName = await _supabaseService.uploadImage(imageFile);
     
     if (fileName != null) {
-      // Simpan data item dengan nama file
+      
       final bool success = await _supabaseService.insertItem({
         'name': 'Nama Item',
         'price': 100000,
-        'media': fileName, // Simpan nama file di kolom media
+        'media': fileName, 
         'category': 'Kategori',
         'description': 'Deskripsi item',
       });

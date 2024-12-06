@@ -15,11 +15,9 @@ class Product {
 }
 
 class SellerProfilePage extends StatelessWidget {
-  // Data profil penjual contoh
   final String sellerName = "Budi Santoso";
   final String profileImageUrl = "https://example.com/profile.jpg";
   
-  // Daftar produk penjual
   final List<Product> products = [
     Product(
       name: "Sepatu Olahraga", 

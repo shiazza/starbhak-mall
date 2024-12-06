@@ -11,7 +11,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final _supabase = Supabase.instance.client;
   
-  // User data
+  
   Map<String, dynamic>? _userData;
   bool _isLoading = true;
   String? _avatarUrl;
@@ -24,7 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _fetchUserProfile() async {
     try {
-      // Assuming current logged-in user's ID can be retrieved
+      
       final userId = _supabase.auth.currentUser?.id;
       
       if (userId == null) {
@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .eq('id', userId)
           .single();
 
-      // Get avatar URL from Supabase storage
+      
       if (response['avatar'] != null) {
         _avatarUrl = _supabase.storage.from('avatar').getPublicUrl(response['avatar']);
       }
@@ -57,12 +57,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _uploadAvatar() async {
-    // TODO: Implement image picker and upload logic
-    // This is a placeholder for avatar upload functionality
+    
+    
     try {
-      // 1. Pick an image from gallery/camera
-      // 2. Upload to Supabase storage
-      // 3. Update user's avatar field in users table
+      
+      
+      
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Avatar upload not implemented yet')),
       );
@@ -88,7 +88,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      // Profile Avatar
+                      
                       Stack(
                         children: [
                           CircleAvatar(
@@ -118,7 +118,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       const SizedBox(height: 16),
                       
-                      // Username
+                      
                       Text(
                         _userData?['username'] ?? 'No Username',
                         style: const TextStyle(
@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       
-                      // Email
+                      
                       Text(
                         _userData?['email'] ?? 'No Email',
                         style: const TextStyle(
